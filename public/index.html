@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECLIPSE</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav>
+    <div class="logo">
+        <div class="logo-box">E</div>
+        <span>ECLIPSE</span>
+    </div>
+
+    <a href="https://discord.com" target="_blank" class="discord">
+        Discord
+    </a>
+</nav>
+
+<section class="hero">
+
+    <div class="tag">
+        ECLIPSE • DISCORD SYSTEM
+    </div>
+
+    <h1>
+        Welcome to<br>
+        <span>ECLIPSE</span>
+    </h1>
+
+    <p>
+        A simple and powerful dashboard for the Eclipse Discord community.
+        Check the bot status, donation pile, and system information.
+    </p>
+
+    <div class="buttons">
+        <a href="#dashboard" class="primary">
+            Open Dashboard
+        </a>
+
+        <a href="#commands" class="secondary">
+            Commands
+        </a>
+    </div>
+
+</section>
+
+<section id="dashboard" class="dashboard">
+
+    <div class="section-title">
+        <div>
+            <div class="tag">DASHBOARD</div>
+            <h2>System Status</h2>
+        </div>
+
+        <div id="status" class="status">
+            <span></span>
+            Checking...
+        </div>
+    </div>
+
+    <div class="cards">
+
+        <div class="card main-card">
+
+            <div class="icon">◉</div>
+
+            <div class="label">
+                BOT STATUS
+            </div>
+
+            <div id="botStatus" class="number">
+                ONLINE
+            </div>
+
+            <p id="statusText">
+                Checking Eclipse services...
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">✦</div>
+
+            <div class="label">
+                DONATION PILE
+            </div>
+
+            <div id="pile" class="number">
+                0
+            </div>
+
+            <p>
+                Items currently recorded.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">⌁</div>
+
+            <div class="label">
+                WEBSITE
+            </div>
+
+            <div class="number">
+                ONLINE
+            </div>
+
+            <p>
+                Eclipse website is running.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="commands" class="commands-section">
+
+    <div class="tag">
+        DISCORD
+    </div>
+
+    <h2>Commands</h2>
+
+    <p>
+        Use these commands inside the Eclipse Discord server.
+    </p>
+
+    <div class="commands">
+
+        <div class="command">
+            <span>/donate</span>
+            <p>Record a donation.</p>
+        </div>
+
+        <div class="command">
+            <span>/getdonated</span>
+            <p>View donation information.</p>
+        </div>
+
+        <div class="command">
+            <span>/pile</span>
+            <p>View the current pile.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about">
+
+    <div>
+        <div class="tag">ABOUT</div>
+
+        <h2>
+            Built for<br>
+            <span>ECLIPSE.</span>
+        </h2>
+
+        <p>
+            A clean purple dashboard designed for the Eclipse community.
+        </p>
+    </div>
+
+    <div class="eclipse-orb">
+        <span>E</span>
+    </div>
+
+</section>
+
+<footer>
+    <span>© ECLIPSE</span>
+    <span>Powered by Vercel</span>
+</footer>
+
+<script src="/script.js"></script>
+
+</body>
+</html>
