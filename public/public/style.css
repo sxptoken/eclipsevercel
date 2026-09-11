@@ -1,0 +1,457 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #07040d;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(139, 58, 255, 0.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 0% 60%,
+            rgba(91, 35, 180, 0.15),
+            transparent 30%
+        );
+}
+
+nav {
+    width: min(1150px, 90%);
+    height: 85px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.logo-box {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #b45cff,
+        #681cff
+    );
+
+    box-shadow:
+        0 0 25px rgba(142, 53, 255, 0.5);
+}
+
+.discord {
+    padding: 11px 18px;
+
+    border-radius: 10px;
+
+    color: white;
+    text-decoration: none;
+
+    background: rgba(255,255,255,0.05);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    transition: .2s;
+}
+
+.discord:hover {
+    background: rgba(168,85,247,.2);
+}
+
+.hero {
+    width: min(1150px, 90%);
+    margin: auto;
+
+    padding-top: 120px;
+    padding-bottom: 150px;
+}
+
+.tag {
+    color: #b979ff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.hero h1 {
+    margin-top: 18px;
+
+    font-size: clamp(60px, 10vw, 110px);
+
+    line-height: .9;
+
+    letter-spacing: -6px;
+}
+
+.hero h1 span,
+.about h2 span {
+    background: linear-gradient(
+        90deg,
+        white,
+        #c084fc,
+        #7c3aed
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero p {
+    max-width: 600px;
+
+    margin-top: 30px;
+
+    color: #aaa1b5;
+
+    line-height: 1.7;
+
+    font-size: 17px;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+.primary,
+.secondary {
+    padding: 14px 20px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.primary {
+    background: linear-gradient(
+        135deg,
+        #a855f7,
+        #6d28d9
+    );
+
+    box-shadow:
+        0 10px 35px rgba(124,58,237,.3);
+}
+
+.secondary {
+    color: white;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.dashboard {
+    width: min(1150px, 90%);
+    margin: auto;
+
+    padding-bottom: 130px;
+}
+
+.section-title {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-top: 8px;
+
+    font-size: clamp(35px, 5vw, 55px);
+
+    letter-spacing: -3px;
+}
+
+.status {
+    padding: 9px 14px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+
+    color: #bbb3c6;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.status span {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    margin-right: 6px;
+
+    border-radius: 50%;
+
+    background: #a855f7;
+
+    box-shadow: 0 0 12px #a855f7;
+}
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        1fr
+        1fr;
+
+    gap: 15px;
+}
+
+.card {
+    min-height: 220px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.015)
+        );
+
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.main-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139,61,255,.23),
+            rgba(255,255,255,.02)
+        );
+}
+
+.icon {
+    color: #c084fc;
+
+    font-size: 22px;
+
+    margin-bottom: 40px;
+}
+
+.label {
+    color: #918898;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.number {
+    margin-top: 8px;
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+}
+
+.card p {
+    margin-top: 8px;
+
+    color: #89818f;
+
+    font-size: 13px;
+}
+
+.commands-section {
+    width: min(1150px, 90%);
+    margin: auto;
+
+    padding-bottom: 130px;
+}
+
+.commands-section > p {
+    margin-top: 15px;
+
+    color: #918998;
+}
+
+.commands {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+.command {
+    padding: 25px;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.command span {
+    color: #d0a4ff;
+
+    font-family: monospace;
+
+    font-size: 16px;
+}
+
+.command p {
+    margin-top: 10px;
+
+    color: #89818f;
+
+    font-size: 13px;
+}
+
+.about {
+    width: min(1150px, 90%);
+    margin: auto;
+
+    padding: 100px 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+
+    border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.about p {
+    margin-top: 18px;
+
+    color: #918998;
+}
+
+.eclipse-orb {
+    width: 190px;
+    height: 190px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #e0b7ff,
+            #7c3aed 42%,
+            #160b24 70%
+        );
+
+    box-shadow:
+        0 0 90px rgba(139,61,255,.4);
+}
+
+.eclipse-orb span {
+    font-size: 75px;
+
+    font-weight: 900;
+}
+
+footer {
+    width: min(1150px, 90%);
+    margin: auto;
+
+    padding: 30px 0 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #625a69;
+
+    font-size: 12px;
+}
+
+@media(max-width: 800px) {
+
+    .hero {
+        padding-top: 80px;
+    }
+
+    .hero h1 {
+        letter-spacing: -3px;
+    }
+
+    .cards,
+    .commands {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+    .about {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .buttons {
+        flex-wrap: wrap;
+    }
+}
