@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECLIPSE • Discord Dashboard</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="dot"></span>ECLIPSE</div>
+  <a class="discord-link" href="https://discord.com" target="_blank" rel="noopener">Discord ↗</a>
+</header>
+<main>
+<section class="hero">
+  <div class="eyebrow">ECLIPSE • DISCORD DASHBOARD</div>
+  <h1>WELCOME TO <span>ECLIPSE</span></h1>
+  <p>Manage Eclipse features from one simple dashboard.</p>
+  <div class="hero-status"><span class="status-dot"></span><span id="statusText">Dashboard ready</span></div>
+</section>
+<section class="tools">
+  <div class="section-heading"><div><div class="eyebrow">TOOLS</div><h2>Choose an action</h2></div></div>
+  <div class="tool-grid">
+    <button type="button" class="tool-card" id="donateButton"><div class="tool-icon">＋</div><h3>Donate</h3><p>Add a donation to the ECLIPSE donation list.</p><span class="tool-action">Open →</span></button>
+    <button type="button" class="tool-card" id="getDonatedButton"><div class="tool-icon">↗</div><h3>Get Donated</h3><p>Get one random donation from the pile.</p><span class="tool-action">Open →</span></button>
+    <button type="button" class="tool-card" id="pileButton"><div class="tool-icon">▣</div><h3>Pile</h3><p>Check how many donations are in the pile.</p><span class="tool-action">Open →</span></button>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><span>BOT</span><strong id="botStat">ONLINE</strong></div>
+  <div class="stat"><span>PILE</span><strong id="pileStat">0</strong></div>
+  <div class="stat"><span>DONATIONS</span><strong id="donationStat">0</strong></div>
+</section>
+<section class="about"><div class="eyebrow">ABOUT</div><h2>ECLIPSE</h2><p>A clean purple dashboard for the ECLIPSE Discord tools.</p></section>
+</main>
+<div id="modal" class="modal hidden" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <button type="button" class="close" id="closeButton" aria-label="Close">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<script src="/script.js" defer></script>
+</body>
+</html>
