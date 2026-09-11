@@ -1,0 +1,267 @@
+import os
+import json
+import random
+import base64
+import hashlib
+import nacl.signing
+from http.server import BaseHTTPRequestHandler
+
+# ============================================================
+# CONFIG
+# ============================================================
+
+DISCORD_PUBLIC_KEY = os.environ.get("DISCORD_PUBLIC_KEY")
+ALLOWED_GUILD_ID = 1539024827170693180
+
+PILE_ROLE_ID = 1539140680159596574
+
+# ============================================================
+# SIMPLE STORAGE
+# ============================================================
+#
+# IMPORTANT:
+# Vercel's filesystem is NOT persistent.
+#
+# For production, replace these functions with Vercel KV,
+# Postgres, Supabase, etc.
+#
+# The in-memory fallback below is only for testing.
+#
+
+donation_pile = []
+
+
+def load_donations():
+    return donation_pile
+
+
+def save_donations():
+    pass
+
+
+# ============================================================
+# DISCORD RESPONSE HELPERS
+# ============================================================
+
+def response(content, ephemeral=False):
+    flags = 64 if ephemeral else 0
+
+    return {
+        "type": 4,
+        "data": {
+            "content": content,
+            "flags": flags
+        }
+    }
+
+
+# ============================================================
+# COMMANDS
+# ============================================================
+
+def command_donate(interaction):
+    options = (
+        interaction
+        .get("data", {})
+        .get("options", [])
+    )
+
+    thing = None
+
+    for option in options:
+        if option.get("name") == "thing":
+            thing = option.get("value")
+            break
+
+    if not thing:
+        return response(
+            "❌ Please enter something to donate.",
+            True
+        )
+
+    thing = str(thing).strip()
+
+    if not thing:
+        return response(
+            "❌ Please enter something to donate.",
+            True
+        )
+
+    donation_pile.append(thing)
+    save_donations()
+
+    return response(
+        "✅ Your donation was added to the pile!",
+        True
+    )
+
+
+def command_getdonated(interaction):
+    if not donation_pile:
+        return response(
+            "❌ The donation pile is empty.",
+            True
+        )
+
+    item = random.choice(donation_pile)
+    donation_pile.remove(item)
+    save_donations()
+
+    #
+    # Discord HTTP interactions cannot use the same persistent
+    # bot connection model as your old discord.py implementation.
+    #
+    # The item is returned ephemerally here.
+    #
+
+    return response(
+        f"🎉 You got an item from the donation pile:\n"
+        f"**{item}**",
+        True
+    )
+
+
+def command_pile(interaction):
+    guild_id = str(interaction.get("guild_id", ""))
+
+    if guild_id != str(ALLOWED_GUILD_ID):
+        return response(
+            "❌ This command can only be used in the Eclipse server.",
+            True
+        )
+
+    member = interaction.get("member", {})
+    roles = member.get("roles", [])
+
+    if str(PILE_ROLE_ID) not in [str(x) for x in roles]:
+        return response(
+            "❌ You don't have the required role to use `/pile`.",
+            True
+        )
+
+    count = len(donation_pile)
+
+    return response(
+        "📦 **Donation Pile**\n"
+        f"There are currently **{count} item(s)** in the pile.",
+        True
+    )
+
+
+# ============================================================
+# COMMAND ROUTER
+# ============================================================
+
+def handle_command(interaction):
+    data = interaction.get("data", {})
+    command_name = data.get("name")
+
+    if command_name == "donate":
+        return command_donate(interaction)
+
+    if command_name == "getdonated":
+        return command_getdonated(interaction)
+
+    if command_name == "pile":
+        return command_pile(interaction)
+
+    if command_name == "gettoken":
+        return response(
+            "❌ `/gettoken` is unavailable in the Vercel version.",
+            True
+        )
+
+    return response(
+        "❌ Unknown command.",
+        True
+    )
+
+
+# ============================================================
+# VERCEL HANDLER
+# ============================================================
+
+class handler(BaseHTTPRequestHandler):
+
+    def send_json(self, status, data):
+        body = json.dumps(data).encode("utf-8")
+
+        self.send_response(status)
+        self.send_header(
+            "Content-Type",
+            "application/json"
+        )
+        self.send_header(
+            "Content-Length",
+            str(len(body))
+        )
+        self.end_headers()
+
+        self.wfile.write(body)
+
+    def do_GET(self):
+        self.send_json(
+            200,
+            {
+                "status": "online",
+                "service": "Discord bot API"
+            }
+        )
+
+    def do_POST(self):
+
+        try:
+            length = int(
+                self.headers.get(
+                    "Content-Length",
+                    0
+                )
+            )
+
+            raw_body = self.rfile.read(length)
+
+            interaction = json.loads(
+                raw_body.decode("utf-8")
+            )
+
+            # Discord PING
+            if interaction.get("type") == 1:
+                self.send_json(
+                    200,
+                    {
+                        "type": 1
+                    }
+                )
+                return
+
+            # Discord APPLICATION_COMMAND
+            if interaction.get("type") == 2:
+                result = handle_command(
+                    interaction
+                )
+
+                self.send_json(
+                    200,
+                    result
+                )
+                return
+
+            self.send_json(
+                400,
+                {
+                    "error": "Unsupported Discord interaction"
+                }
+            )
+
+        except Exception as e:
+
+            print(
+                f"Discord handler error: {e}"
+            )
+
+            self.send_json(
+                500,
+                {
+                    "error": "Internal server error"
+                }
+            )
